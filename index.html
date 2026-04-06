@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 AME TV - Tu Stream de Confianza</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+</head>
+<body>
+
+    <!-- Floating bubbles background -->
+    <div class="bg-bubbles" id="bgBubbles"></div>
+
+    <!-- Noise overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <div class="logo">
+                <div class="logo-icon">📺</div>
+                <span class="logo-text">AME<span class="logo-accent">TV</span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#hero" class="nav-link active">Inicio</a></li>
+                <li><a href="#stream" class="nav-link">Stream</a></li>
+                <li><a href="#chat" class="nav-link">Chat</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="btn-follow" id="btnFollow">
+                    <span class="btn-icon">♡</span> Seguir
+                </button>
+                <button class="btn-dj" id="btnDj">🎮 Streamer</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+        <div class="hero-left">
+            <div class="live-chip">
+                <span class="live-dot"></span>
+                EN VIVO AHORA
+            </div>
+            <h1 class="hero-title">
+                Bienvenida a<br>
+                <span class="title-big">AME<span class="title-accent">TV</span></span>
+            </h1>
+            <p class="hero-sub">Tu espacio de gaming, vibras y diversión 🎮✨</p>
+
+            <div class="hero-stats">
+                <div class="stat-pill">
+                    <span class="stat-num" id="viewerCount">0</span>
+                    <span class="stat-lbl">👁️ viendo</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-num" id="followCount">1.2K</span>
+                    <span class="stat-lbl">♡ seguidores</span>
+                </div>
+                <div class="stat-pill online">
+                    <span>● ONLINE</span>
+                </div>
+            </div>
+
+            <div class="hero-btns">
+                <button class="btn-primary" id="btnWatch">
+                    ▶ Ver Stream
+                </button>
+                <button class="btn-secondary" id="btnNotify">
+                    🔔 Notificarme
+                </button>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="screen-frame">
+                <div class="screen-glow"></div>
+                <div class="screen-inner">
+                    <div class="character-container">
+                        <div class="character-blob"></div>
+                        <img src="img1.png" alt="AME TV" class="character-img" onerror="this.style.display='none'; document.getElementById('charFallback').style.display='flex'">
+                        <div class="char-fallback" id="charFallback">🎮</div>
+                    </div>
+                    <div class="screen-overlay-text">
+                        <span>AME TV</span>
+                    </div>
+                </div>
+                <div class="screen-controls">
+                    <span class="sc-dot red"></span>
+                    <span class="sc-dot yellow"></span>
+                    <span class="sc-dot green"></span>
+                    <span class="sc-title">AME TV • EN VIVO</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== STREAM SECTION ===== -->
+    <section class="stream-section" id="stream">
+        <div class="section-header">
+            <h2 class="section-title">🎮 Stream en Vivo</h2>
+            <p class="section-sub">Conéctate y disfruta el contenido en tiempo real</p>
+        </div>
+
+        <div class="stream-layout">
+            <!-- Video Player -->
+            <div class="video-wrapper">
+                <div class="video-player" id="videoPlayer">
+                    <div class="player-offline" id="playerOffline">
+                        <div class="offline-icon">📺</div>
+                        <p class="offline-title">Stream Offline</p>
+                        <p class="offline-sub">Vuelve pronto para el próximo stream 🌸</p>
+                    </div>
+                    <video id="liveVideo" class="live-video hidden" autoplay muted controls></video>
+                    <div class="player-overlay hidden" id="playerOverlay">
+                        <div class="overlay-content">
+                            <div class="overlay-logo">AME<span>TV</span></div>
+                            <div class="overlay-live">
+                                <span class="live-dot"></span> EN VIVO
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Player controls bar -->
+                <div class="player-bar">
+                    <div class="player-bar-left">
+                        <button class="pb-btn" id="pbPlay">▶</button>
+                        <div class="vol-group">
+                            <span>🔊</span>
+                            <input type="range" class="vol-slider" id="volSlider" min="0" max="100" value="80">
+                            <span class="vol-num" id="volNum">80%</span>
+                        </div>
+                    </div>
+                    <div class="player-bar-center">
+                        <span class="pb-title" id="pbTitle">Lo Mejor del Momento</span>
+                        <span class="pb-dj" id="pbDj">con AME • Gaming Time</span>
+                    </div>
+                    <div class="player-bar-right">
+                        <span class="pb-quality">HD</span>
+                        <span class="pb-time" id="pbTime">00:00:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Chat -->
+            <div class="chat-panel" id="chat">
+                <div class="chat-header">
+                    <span>💬 Chat en vivo</span>
+                    <span class="chat-online" id="chatOnline">0 online</span>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="chat-welcome">
+                        <span>🌸</span> ¡Bienvenida al chat de AME TV!
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Escribe algo bonito... 🌸" maxlength="100">
+                    <button class="chat-send" id="chatSend">→</button>
+                </div>
+                <div class="chat-emotes">
+                    <button class="emote-btn" data-emote="🎮">🎮</button>
+                    <button class="emote-btn" data-emote="💖">💖</button>
+                    <button class="emote-btn" data-emote="🌸">🌸</button>
+                    <button class="emote-btn" data-emote="✨">✨</button>
+                    <button class="emote-btn" data-emote="🔥">🔥</button>
+                    <button class="emote-btn" data-emote="👏">👏</button>
+                    <button class="emote-btn" data-emote="😍">😍</button>
+                    <button class="emote-btn" data-emote="💯">💯</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== STREAMER PANEL (hidden) ===== -->
+    <section class="dj-panel hidden" id="djPanel">
+        <div class="panel-card">
+            <button class="btn-logout" id="btnLogout">✕ Salir</button>
+            <h2 class="panel-title">🎮 Panel de Streamer</h2>
+            <div class="panel-grid">
+
+                <div class="panel-box">
+                    <h3>📡 Transmisión</h3>
+                    <div class="broadcast-status" id="broadcastStatus">
+                        <span class="bd-dot offline"></span>
+                        <span>Fuera del aire</span>
+                    </div>
+                    <button class="btn-start" id="btnStartBroadcast">🎙️ Iniciar Stream</button>
+                    <button class="btn-stop hidden" id="btnStopBroadcast">⏹ Detener Stream</button>
+                    <div class="stream-key-group" id="streamIdGroup" style="display:none">
+                        <label>🔗 Tu ID de stream (comparte esto)</label>
+                        <div style="display:flex;gap:8px;align-items:center">
+                            <input type="text" id="streamIdDisplay" class="panel-input" readonly style="flex:1;font-size:0.8rem">
+                            <button id="btnCopyId" style="background:var(--pink-deep);border:none;color:#fff;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:800;white-space:nowrap">Copiar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-box">
+                    <h3>🎤 Micrófono</h3>
+                    <button class="btn-mic" id="btnMic">🎤 Activar Micrófono</button>
+                    <div class="mic-bar" id="micBar">
+                        <div class="mic-level" id="micLevel"></div>
+                    </div>
+                </div>
+
+                <div class="panel-box full">
+                    <h3>📝 Info del Stream</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Título del stream</label>
+                            <input type="text" id="streamTitle" class="panel-input" placeholder="Lo Mejor del Momento">
+                        </div>
+                        <div class="form-group">
+                            <label>Juego / Categoría</label>
+                            <input type="text" id="streamGame" class="panel-input" placeholder="Just Chatting">
+                        </div>
+                    </div>
+                    <button class="btn-update" id="btnUpdateInfo">✅ Actualizar Info</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== LOGIN MODAL ===== -->
+    <div class="modal hidden" id="loginModal">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-card">
+            <button class="modal-close" id="modalClose">✕</button>
+            <div class="modal-icon">🎮</div>
+            <h2 class="modal-title">Acceso Streamer</h2>
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label>Usuario</label>
+                    <input type="text" id="username" required placeholder="admin" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="password" required placeholder="ame2025">
+                </div>
+                <button type="submit" class="btn-login-submit">Entrar 🚀</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-logo">AME<span>TV</span></div>
+            <p>© 2025 AME TV • Tu stream de confianza 🎮💖</p>
+            <p class="footer-sub">Streaming en vivo • Gaming • Buenas vibras</p>
+        </div>
+    </footer>
+
+    <!-- PeerJS para WebRTC real -->
+    <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <script src="bubbles.js"></script>
+    <script src="app.js"></script>
+    <script src="chat.js"></script>
+    <script src="panel.js"></script>
+    <script src="viewer.js"></script>
+</body>
+</html>
