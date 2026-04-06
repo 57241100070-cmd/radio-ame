@@ -8,7 +8,7 @@
 | `chat.js` | Chat en vivo interactivo |
 | `panel.js` | Panel del streamer (mic, pantalla) |
 | `bubbles.js` | Animación de burbujas de fondo |
-| `img1.png` | Tu imagen/personaje (¡agrégala aquí!) |
+| `img1.png` | imagen |
 
 ## Deploy en Netlify
 
